@@ -4,9 +4,11 @@ using ECommerce.DAL.DBModel;
 using ECommerce.DAL.Repository.Interfaces;
 using ECommerce.DAL.Repository;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
+using ECommerce.BLL.Validations;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,9 +40,15 @@ builder.Services.AddIdentity<AppUser, AppRole>(opts =>
 }).AddEntityFrameworkStores<AppDbIdentityContext>()
   .AddDefaultTokenProviders();
 
-builder.Services.AddAutoMapper(typeof(CustomMapping));
+
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+builder.Services.AddAutoMapper(typeof(CustomMapping));
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssembly(typeof(ProductValidator).Assembly);
 
 var app = builder.Build();
 
