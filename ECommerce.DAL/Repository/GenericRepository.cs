@@ -27,14 +27,14 @@ namespace ECommerce.DAL.Repository
             return item;
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             var dbItem = _entities.Find(id);
             _entities.Remove(dbItem);
             _dbContext.SaveChanges();
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public async Task<TEntity> GetByIdAsync(Guid id)
         {
             var dbItem = await _entities.FindAsync(id);
             return dbItem;

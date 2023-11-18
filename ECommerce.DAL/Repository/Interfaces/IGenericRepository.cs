@@ -10,8 +10,8 @@ namespace ECommerce.DAL.Repository.Interfaces
     {
         public Task<TEntity> AddAsync(TEntity item);
         public Task<List<TEntity>> GetListAsync();
-        public Task<TEntity> GetByIdAsync(int id);
+        public Task<TEntity> GetByIdAsync(Guid id);
         public TEntity Update(TEntity item);
-        public void Delete(int id);
+        public void Delete(Guid id);
     }
 }
